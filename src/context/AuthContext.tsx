@@ -6,7 +6,6 @@ interface AuthContextProps {
   usuario: UsuarioLogin;
   handleLogout(): void;
   handleLogin(usuario: UsuarioLogin): Promise<void>;
-  isLoading: boolean;
 }
 
 interface AuthProviderProps {
@@ -24,22 +23,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     token: "",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-
   async function handleLogin(usuarioLogin: UsuarioLogin) {
-    setIsLoading(true);
     try {
       await login(`/usuarios/logar`, usuarioLogin, setUsuario);
       alert("Usuário foi autenticado com sucesso!");
     } catch (error) {
       alert("Os dados do Usuário estão inconsistentes!");
     }
-    setIsLoading(false);
   }
 
   function handleLogout() {
     setUsuario({
-      id: 0,
       nome: "",
       usuario: "",
       senha: "",
@@ -49,9 +43,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider
-      value={{ usuario, handleLogin, handleLogout, isLoading }}
-    >
+    <AuthContext.Provider value={{ usuario, handleLogin, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );
