@@ -5,7 +5,6 @@ import Usuario from "../../models/Usuario";
 import { cadastrarUsuario } from "../../service/Service";
 
 function Cadastro() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<Usuario>({
@@ -50,8 +49,6 @@ function Cadastro() {
     e.preventDefault();
 
     if (confirmaSenha === formData.senha && formData.senha.length >= 8) {
-      setIsLoading(true);
-
       try {
         await cadastrarUsuario(`/usuarios/cadastrar`, formData, setFormData);
         alert("Usuário cadastrado com sucesso!");
@@ -66,7 +63,7 @@ function Cadastro() {
       setConfirmaSenha("");
     }
 
-    setIsLoading(false);
+    retornar();
   }
 
   return (
@@ -199,7 +196,7 @@ function Cadastro() {
 
           <p className="text-center text-gray-600 mt-4">
             Já tem uma conta?{" "}
-            <Link to="/login" className="text-[#f5c518] hover:underline">
+            <Link to="/" className="text-[#f5c518] hover:underline">
               Faça login
             </Link>
           </p>
