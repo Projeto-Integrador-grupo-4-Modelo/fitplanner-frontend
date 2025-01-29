@@ -80,7 +80,10 @@ function Login() {
           </button>
           <p className="text-center text-gray-600 mt-4">
             Não tem uma conta?{" "}
-            <Link to="/cadastro" className="text-[#f5c518] hover:underline">
+            <Link
+              to="/cadastro"
+              className="text-[#f5c518] hover:underline font-bold"
+            >
               Cadastre-se
             </Link>
           </p>

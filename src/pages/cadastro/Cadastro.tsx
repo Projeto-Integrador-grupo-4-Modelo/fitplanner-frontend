@@ -203,7 +203,7 @@ function Cadastro() {
 
           <p className="text-center text-gray-600 mt-4">
             Já tem uma conta?{" "}
-            <Link to="/" className="text-[#f5c518] hover:underline">
+            <Link to="/" className="text-[#f5c518] hover:underline font-bold">
               Faça login
             </Link>
           </p>
