@@ -1,6 +1,9 @@
 import React from "react";
-import { Mail, Phone, MapPin, Github } from "lucide-react";
-import { Link } from "react-router-dom";
+
+
+function Footer() {
+  return <div></div>;
+}
 
 const Footer = () => {
   return (
@@ -80,5 +83,6 @@ const Footer = () => {
     </footer>
   );
 };
+
 
 export default Footer;
