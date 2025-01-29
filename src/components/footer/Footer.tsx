@@ -52,14 +52,14 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    to="/produto"
+                    to="/cadastro"
                     className="hover:text-yellow-300 transition-colors">
                     Cadastro
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to="/cadastro-funcionario"
+                    to="/login"
                     className="hover:text-yellow-300 transition-colors">
                     Login
                   </Link>
