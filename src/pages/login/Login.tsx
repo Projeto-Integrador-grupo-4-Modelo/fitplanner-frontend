@@ -1,12 +1,11 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UsuarioLogin from "../../models/UsuarioLogin";
-import { AuthContext } from "../../context/AuthContext";
+import { useAuth } from "../../context/useAuth";
 
 function Login() {
   const navigate = useNavigate();
-
-  const { usuario, handleLogin } = useContext(AuthContext);
+  const { usuario, handleLogin } = useAuth();
 
   const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
     {} as UsuarioLogin
@@ -50,9 +49,7 @@ function Login() {
               type="email"
               name="usuario"
               value={usuarioLogin.usuario}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                atualizarEstado(e)
-              }
+              onChange={atualizarEstado}
               className="w-full p-2 border rounded focus:ring-[#f5c518] focus:border-[#f5c518] border-black"
               required
             />
@@ -63,9 +60,7 @@ function Login() {
               type="password"
               name="senha"
               value={usuarioLogin.senha}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                atualizarEstado(e)
-              }
+              onChange={atualizarEstado}
               className="w-full p-2 border rounded focus:ring-[#f5c518] focus:border-[#f5c518] border-black"
               required
             />

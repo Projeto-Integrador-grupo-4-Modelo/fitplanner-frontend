@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { User, Menu, X, Trash, Dumbbell, PlusCircle } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { User, Menu, X, Dumbbell, PlusCircle, Trash } from "lucide-react";
+import { useAuth } from "../../context/useAuth";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { userType, logout } = useAuth();
+  const { userType, logout, isAluno, isProfessor } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,7 +18,7 @@ export function Navbar() {
 
   return (
     <nav
-      className={`w-full top-0 z-50 transition-all duration-300 bg-gray-900 py-2 ${
+      className={`fixed w-full top-0 z-50 transition-all duration-300 bg-gray-900 py-2 ${
         isScrolled
           ? "bg-gray-900/95 backdrop-blur-sm shadow-lg py-2"
           : "bg-gray-900 py-3"
@@ -42,7 +43,7 @@ export function Navbar() {
           </Link>
 
           {/* Opções para Aluno */}
-          {userType === "ALUNO" && (
+          {isAluno && (
             <>
               <Link
                 to="/meus-treinos"
@@ -60,7 +61,7 @@ export function Navbar() {
           )}
 
           {/* Opções para Professor */}
-          {userType === "PROFESSOR" && (
+          {isProfessor && (
             <>
               <Link
                 to="/cadastrar-treino"
@@ -113,75 +114,6 @@ export function Navbar() {
           )}
         </button>
       </div>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-gray-900 shadow-lg py-4">
-          <div className="flex flex-col space-y-4 px-6">
-            <Link
-              to="/"
-              className="text-white hover:bg-[#9B7200] px-6 py-2 rounded-full flex items-center gap-2 justify-center transition-colors"
-            >
-              Início
-            </Link>
-
-            {userType === "ALUNO" && (
-              <Link
-                to="/meus-treinos"
-                className="text-white hover:bg-[#9B7200] px-6 py-2 rounded-full flex items-center gap-2 justify-center transition-colors"
-              >
-                Meus Treinos
-              </Link>
-            )}
-
-            {userType === "PROFESSOR" && (
-              <>
-                <Link
-                  to="/cadastrar-treino"
-                  className="text-white hover:bg-[#9B7200] px-6 py-2 rounded-full flex items-center gap-2 justify-center transition-colors"
-                >
-                  <PlusCircle size={20} />
-                  Cadastrar Treino
-                </Link>
-                <Link
-                  to="/ver-treinos"
-                  className="text-white hover:bg-[#9B7200] px-6 py-2 rounded-full flex items-center gap-2 justify-center transition-colors"
-                >
-                  <Dumbbell size={20} />
-                  Ver Todos os Treinos
-                </Link>
-                <Link
-                  to="/deletar-treino"
-                  className="text-white hover:bg-[#9B7200] px-6 py-2 rounded-full flex items-center gap-2 justify-center transition-colors"
-                >
-                  <Trash size={20} />
-                  Deletar Treino
-                </Link>
-              </>
-            )}
-
-            {!userType && (
-              <Link
-                to="/login"
-                className="bg-[#B8860B] text-white px-6 py-2 rounded-full flex items-center gap-2 justify-center hover:bg-[#9B7200] transition-colors"
-              >
-                <User size={20} />
-                <span>Área do Aluno</span>
-              </Link>
-            )}
-
-            {/* Logout Button in Mobile Menu */}
-            {userType && (
-              <button
-                onClick={logout}
-                className="text-white hover:text-[#B8860B] transition-colors"
-              >
-                Sair
-              </button>
-            )}
-          </div>
-        </div>
-      )}
     </nav>
   );
 }
