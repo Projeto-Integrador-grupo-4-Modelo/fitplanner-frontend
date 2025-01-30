@@ -1,9 +1,3 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import Home from "./pages/home/Home";
-import About from "./pages/about/About";
-import FormTreinos from "./components/treino/formtreino/FormTreino";
-
 function App() {
   return (
     <>
@@ -17,5 +11,5 @@ function App() {
     </>
   );
 }
-
 export default App;
+
