@@ -33,11 +33,17 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <div className="flex flex-col items-center mb-8">
-          <Dumbbell className="text-[#f5c518] mb-2" size={48} />
-          <h1 className="text-3xl font-bold text-[#1a1a1a]">FitPlanner</h1>
+          <img
+            src="https://ik.imagekit.io/viclaraa/download%20(2).png?updatedAt=1738181915415"
+            alt=""
+            className="h-20"
+          />
+          <h1 className="text-3xl font-bold text-[#1a1a1a]">
+            <span className="text-[#f5c518]">FIT</span> PLANNER
+          </h1>
         </div>
         <form onSubmit={login} className="space-y-4">
           <div>
@@ -49,7 +55,7 @@ function Login() {
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
               }
-              className="w-full p-2 border rounded focus:ring-[#f5c518] focus:border-[#f5c518]"
+              className="w-full p-2 border rounded focus:ring-[#f5c518] focus:border-[#f5c518] border-black"
               required
             />
           </div>
@@ -62,7 +68,7 @@ function Login() {
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
               }
-              className="w-full p-2 border rounded focus:ring-[#f5c518] focus:border-[#f5c518]"
+              className="w-full p-2 border rounded focus:ring-[#f5c518] focus:border-[#f5c518] border-black"
               required
             />
           </div>
@@ -74,7 +80,10 @@ function Login() {
           </button>
           <p className="text-center text-gray-600 mt-4">
             Não tem uma conta?{" "}
-            <Link to="/cadastro" className="text-[#f5c518] hover:underline">
+            <Link
+              to="/cadastro"
+              className="text-[#f5c518] hover:underline font-bold"
+            >
               Cadastre-se
             </Link>
           </p>
