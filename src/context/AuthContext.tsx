@@ -1,61 +1,60 @@
-// import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
-// import UsuarioLogin from "../models/UsuarioLogin";
-// import { login } from "../services/Service";
-// import { ToastAlerta } from "../utils/ToastAlerta";
+import { login } from "../service/Service";
+import UsuarioLogin from "../models/UsuarioLogin";
 
-// interface AuthContextProps {
-//   usuario: UsuarioLogin;
-//   handleLogout(): void;
-//   handleLogin(usuario: UsuarioLogin): Promise<void>;
-//   isLoading: boolean;
-// }
+interface AuthContextProps {
+  usuario: UsuarioLogin;
+  handleLogout(): void;
+  handleLogin(usuario: UsuarioLogin): Promise<void>;
+  isAluno: boolean;
+  isProfessor: boolean;
+}
 
-// interface AuthProviderProps {
-//   children: ReactNode;
-// }
+interface AuthProviderProps {
+  children: ReactNode;
+}
 
-// export const AuthContext = createContext({} as AuthContextProps);
+export const AuthContext = createContext({} as AuthContextProps);
 
-// export function AuthProvider({ children }: AuthProviderProps) {
-//   const [usuario, setUsuario] = useState<UsuarioLogin>({
-//     id: 0,
-//     nome: "",
-//     usuario: "",
-//     senha: "",
-//     foto: "",
-//     token: "",
-//   });
+export function AuthProvider({ children }: AuthProviderProps) {
+  const [usuario, setUsuario] = useState<UsuarioLogin>({
+    nome: "",
+    usuario: "",
+    senha: "",
+    foto: "",
+    token: "",
+    role: "",
+  });
 
-//   const [isLoading, setIsLoading] = useState(false);
+  const isAluno = usuario.role === "ALUNO";
+  const isProfessor = usuario.role === "PROFESSOR";
 
-//   async function handleLogin(usuarioLogin: UsuarioLogin) {
-//     setIsLoading(true);
-//     try {
-//       await login(`/usuarios/logar`, usuarioLogin, setUsuario);
-//       ToastAlerta("Usuário foi autenticado com sucesso!", "sucesso");
-//     } catch (error) {
-//       ToastAlerta("Os dados do Usuário estão inconsistentes!", "erro");
-//     }
-//     setIsLoading(false);
-//   }
+  async function handleLogin(usuarioLogin: UsuarioLogin) {
+    try {
+      await login(`/usuarios/logar`, usuarioLogin, setUsuario);
+      alert("Usuário foi autenticado com sucesso!");
+    } catch (error) {
+      alert("Os dados do Usuário estão inconsistentes!");
+    }
+  }
 
-//   function handleLogout() {
-//     setUsuario({
-//       id: 0,
-//       nome: "",
-//       usuario: "",
-//       senha: "",
-//       foto: "",
-//       token: "",
-//     });
-//   }
+  function handleLogout() {
+    setUsuario({
+      nome: "",
+      usuario: "",
+      senha: "",
+      foto: "",
+      token: "",
+      role: "",
+    });
+  }
 
-//   return (
-//     <AuthContext.Provider
-//       value={{ usuario, handleLogin, handleLogout, isLoading }}
-//     >
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// }
+  return (
+    <AuthContext.Provider
+      value={{ usuario, handleLogin, handleLogout, isAluno, isProfessor }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+}
