@@ -21,7 +21,7 @@ function About() {
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center p-12">
           <h1 className="text-4xl font-bold text-[#F5C518] mb-6">Sobre Nós</h1>
           <p className="text-xl text-white max-w-3xl mx-auto">
             Nossa plataforma revoluciona a forma como academias e personal
@@ -31,10 +31,10 @@ function About() {
 
         <div className="py-24"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-16 text-center text-white">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-16 text-center text-white hover:scale-105 hover:shadow-xl">
           <div>
-            <Target className="h-12 w-12 text-[#F5C518] mx-auto mb-4" />
-            <h3 className="text-xl font-semibold mb-3">Missão</h3>
+            <Target className="h-12 w-12 text-[#F5C518] mx-auto mb-4 " />
+            <h3 className="text-xl font-semibold mb-3 ">Missão</h3>
             <p className="text-white">
               Potencializar o desempenho de personal trainers e academias,
               oferecendo tecnologia intuitiva e eficiente para gestão de

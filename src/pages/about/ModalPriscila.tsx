@@ -25,7 +25,7 @@ function ModalPostagem() {
           <img
             src="https://i.imgur.com/boEuaDa.jpg"
             alt="Team Member"
-            className="w-32 h-32 rounded-full mx-auto mb-4 object-cover ring-2 ring-yellow-500 cursor-pointer "
+            className="w-32 h-32 rounded-full mx-auto mb-4 object-cover ring-2 ring-yellow-500 cursor-pointer hover:scale-110 transition-transform duration-300"
           />
         }
         modal

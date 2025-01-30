@@ -1,9 +1,9 @@
+import { Github, Link, Mail, MapPin, Phone } from "lucide-react";
 import React from "react";
 
 
 function Footer() {
-  return <div></div>;
-}
+
 
 const Footer = () => {
   return (
@@ -83,6 +83,6 @@ const Footer = () => {
     </footer>
   );
 };
-
+}
 
 export default Footer;
