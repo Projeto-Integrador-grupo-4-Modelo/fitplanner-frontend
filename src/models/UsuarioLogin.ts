@@ -4,4 +4,5 @@ export default interface UsuarioLogin {
   foto: string;
   senha: string;
   token: string;
+  role: 'ALUNO' | 'PROFESSOR';
 }
