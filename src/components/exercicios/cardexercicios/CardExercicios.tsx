@@ -13,7 +13,7 @@ function CardExercicios({ exercicio, onDelete }: CardExerciciosProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border border-gray-200">
+    <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border w-80">
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <span className="text-[#f5c518] text-xl">💪</span>

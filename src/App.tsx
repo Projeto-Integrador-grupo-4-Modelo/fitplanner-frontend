@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./pages/home/Home";
 import About from "./pages/about/About";
 import FormTreinos from "./components/treino/formtreino/FormTreino";
+import CardExercicios from "./components/exercicios/cardexercicios/CardExercicios";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
           <Route path="/sobre" element={<About />} />
         </Routes>
       </BrowserRouter> */}
-      <FormTreinos />
+      {/* <FormTreinos /> */}
+      <CardExercicios />
     </>
   );
 }
