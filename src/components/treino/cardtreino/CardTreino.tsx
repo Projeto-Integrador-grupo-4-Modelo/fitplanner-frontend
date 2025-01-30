@@ -1,6 +1,6 @@
 import { Edit2, Trash2 } from "lucide-react";
 import Treino from "../../../models/Treino";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deletar } from "../../../service/Service";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
@@ -9,6 +9,7 @@ interface CardTreinosProps {
 }
 
 function CardTreino({ treino }: CardTreinosProps) {
+  const navigate = useNavigate();
   const { usuario, handleLogout } = useContext(AuthContext);
   const token = usuario.token;
 
@@ -21,6 +22,7 @@ function CardTreino({ treino }: CardTreinosProps) {
       });
 
       alert("Treino apagado com sucesso");
+      navigate("/base/dashboard");
     } catch (error: any) {
       if (error.toString().includes("403")) {
         handleLogout();
@@ -41,9 +43,6 @@ function CardTreino({ treino }: CardTreinosProps) {
         </div>
 
         <div className="flex space-x-1">
-          <button className="p-1 text-[#f5c518] hover:bg-gray-100 rounded-full">
-            <Edit2 size={18} />
-          </button>
           <button
             className="p-1 text-red-500 hover:bg-gray-100 rounded-full"
             onClick={deletarTreino}
