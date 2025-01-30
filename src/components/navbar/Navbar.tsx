@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { User, Menu, X } from "lucide-react";
+import { AuthContext } from "../../context/AuthContext";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,7 +18,7 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed w-full top-0 z-50 transition-all duration-300 bg-gray-900 py-2 ${
+      className={`w-full top-0 z-50 transition-all duration-300 bg-gray-900 py-2 ${
         isScrolled
           ? "bg-gray-900/95 backdrop-blur-sm shadow-lg py-2"
           : "bg-gray-900 py-3"
@@ -35,7 +36,7 @@ export function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
           <Link
-            to="/"
+            to="/dashboard"
             className="text-white hover:text-[#B8860B] transition-colors"
           >
             Home
@@ -68,7 +69,7 @@ export function Navbar() {
         <div className="md:hidden absolute top-full left-0 w-full bg-gray-900 shadow-lg py-4">
           <div className="flex flex-col space-y-4 px-6">
             <Link
-              to="/"
+              to="/home"
               className="text-white hover:text-white transition-colors px-6 py-2 rounded-full flex items-center gap-2 justify-center hover:bg-[#9B7200] transition-colors"
             >
               Início

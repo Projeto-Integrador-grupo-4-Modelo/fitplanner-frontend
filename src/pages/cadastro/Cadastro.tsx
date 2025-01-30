@@ -160,8 +160,8 @@ function Cadastro() {
               }
               className="w-full p-2 border rounded focus:ring-[#f5c518] focus:border-[#f5c518] border-black"
             >
-              <option value="student">Aluno</option>
-              <option value="trainer">Professor</option>
+              <option value="ALUNO">Aluno</option>
+              <option value="PROFESSOR">Professor</option>
             </select>
           </div>
           <>
@@ -203,7 +203,10 @@ function Cadastro() {
 
           <p className="text-center text-gray-600 mt-4">
             Já tem uma conta?{" "}
-            <Link to="/" className="text-[#f5c518] hover:underline font-bold">
+            <Link
+              to="/login"
+              className="text-[#f5c518] hover:underline font-bold"
+            >
               Faça login
             </Link>
           </p>

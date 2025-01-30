@@ -1,4 +1,3 @@
-import { Dumbbell } from "lucide-react";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UsuarioLogin from "../../models/UsuarioLogin";
@@ -15,7 +14,7 @@ function Login() {
 
   useEffect(() => {
     if (usuario.token !== "") {
-      navigate("/home");
+      navigate("/sobre");
     }
   }, [usuario]);
 
@@ -28,7 +27,6 @@ function Login() {
 
   function login(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(usuarioLogin);
     handleLogin(usuarioLogin);
   }
 
