@@ -1,8 +1,9 @@
 export default interface UsuarioLogin {
+  id: 0;
   nome: string;
   usuario: string;
   foto: string;
   senha: string;
   token: string;
-  role: "ALUNO" | "PROFESSOR" | "";
+  tipo: "ALUNO" | "PROFESSOR" | "";
 }

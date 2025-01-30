@@ -31,7 +31,7 @@ function CardTreino({ treino }: CardTreinosProps) {
 
       <div className="flex justify-between text-gray-700 text-sm mt-2">
         <p>
-          <span className="font-semibold">Duração:</span> {treino.duracaoMin}{" "}
+          <span className="font-semibold">Duração:</span> {treino.duracaoMin}
           min
         </p>
         <p>
@@ -39,7 +39,7 @@ function CardTreino({ treino }: CardTreinosProps) {
         </p>
       </div>
 
-      {treino.exercicio.length > 0 && (
+      {treino.exercicio && treino.exercicio.length > 0 && (
         <div className="mt-3 bg-gray-50 p-2 rounded-lg">
           <h4 className="text-gray-800 font-semibold mb-2">Exercícios:</h4>
           <ul className="space-y-2">

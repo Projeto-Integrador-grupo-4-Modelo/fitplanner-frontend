@@ -1,23 +1,19 @@
 import { createContext, ReactNode, useState } from "react";
-import { login } from "../service/Service";
 import UsuarioLogin from "../models/UsuarioLogin";
+import { login } from "../service/Service";
 
 interface AuthContextProps {
   usuario: UsuarioLogin;
+  handleLogout(): void;
   handleLogin(usuario: UsuarioLogin): Promise<void>;
-  logout(): void;
-  userType: string | null;
-  isAluno: boolean;
-  isProfessor: boolean;
+  isLoading: boolean;
 }
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-export const AuthContext = createContext<AuthContextProps | undefined>(
-  undefined
-);
+export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [usuario, setUsuario] = useState<UsuarioLogin>({
@@ -26,36 +22,36 @@ export function AuthProvider({ children }: AuthProviderProps) {
     senha: "",
     foto: "",
     token: "",
-    role: "",
+    tipo: "",
   });
 
-  const isAluno = usuario.role === "ALUNO";
-  const isProfessor = usuario.role === "PROFESSOR";
-  const userType = usuario.role || null;
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleLogin(usuarioLogin: UsuarioLogin) {
+    setIsLoading(true);
     try {
-      await login("/usuarios/logar", usuarioLogin, setUsuario);
-      alert("Usuário autenticado com sucesso!");
+      await login(`/usuarios/logar`, usuarioLogin, setUsuario);
+      alert("Usuário foi autenticado com sucesso!");
     } catch (error) {
-      alert("Os dados do usuário estão inconsistentes!");
+      alert("Os dados do Usuário estão inconsistentes!");
     }
+    setIsLoading(false);
   }
 
-  function logout() {
+  function handleLogout() {
     setUsuario({
       nome: "",
       usuario: "",
       senha: "",
       foto: "",
       token: "",
-      role: "",
+      tipo: "",
     });
   }
 
   return (
     <AuthContext.Provider
-      value={{ usuario, handleLogin, logout, userType, isAluno, isProfessor }}
+      value={{ usuario, handleLogin, handleLogout, isLoading }}
     >
       {children}
     </AuthContext.Provider>

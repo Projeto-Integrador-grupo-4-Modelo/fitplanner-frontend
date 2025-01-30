@@ -7,6 +7,6 @@ export default interface Treino {
   descricao: string;
   duracaoMin: string;
   categoria: string;
-  exercicio: Exercicio[];
+  exercicio: Exercicio[] | null;
   usuario: Usuario | null;
 }

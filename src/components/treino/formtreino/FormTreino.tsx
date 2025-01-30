@@ -1,15 +1,11 @@
 import { useState, useEffect, useContext, ChangeEvent } from "react";
 import { buscar, atualizar, cadastrar } from "../../../service/Service";
-import ListarExercicios from "../../exercicios/listarexercicios/ListarExercicios";
 import { AuthContext } from "../../../context/AuthContext";
 import Exercicio from "../../../models/Exercicio";
 import Usuario from "../../../models/Usuario";
 import Treino from "../../../models/Treino";
 import { useNavigate } from "react-router-dom";
-
-interface ExercicioProps {
-  exercicio: Exercicio;
-}
+import ListarTreinos from "../listartreino/ListarTreino";
 
 function FormTreinos() {
   const navigate = useNavigate();
@@ -59,10 +55,8 @@ function FormTreinos() {
     console.log(treino);
 
     if (treinoSelecionado !== null) {
-      // Atualizar treino existente
       await atualizar(`/treinos/${treinoSelecionado}`, treino, setTreinos, {});
     } else {
-      // Cadastrar novo treino
       await cadastrar("/treinos", treino, setTreinos, {
         headers: { Authorization: token },
       });
@@ -81,13 +75,13 @@ function FormTreinos() {
 
   return (
     <>
-      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow">
-        <h2 className="text-xl font-bold mb-4">
+      <div className="max-w-2xl mx-auto  p-6 rounded-lg shadow">
+        <h2 className="text-xl font-bold mb-4 text-[#f5c518]">
           {treinoSelecionado ? "Editar Treino" : "Cadastrar Novo Treino"}
         </h2>
 
         <form onSubmit={handleSubmit}>
-          <label className="block text-gray-700">Selecione o Aluno</label>
+          <label className="block ">Selecione o Aluno</label>
           <select
             name="usuario"
             value={treino.usuario?.id || ""}
@@ -109,7 +103,7 @@ function FormTreinos() {
             ))}
           </select>
 
-          <label className="block text-gray-700">Nome do Treino</label>
+          <label className="block ">Nome do Treino</label>
           <input
             type="text"
             name="nomeTreino"
@@ -118,7 +112,7 @@ function FormTreinos() {
             className="w-full p-2 border rounded"
             required
           />
-          <label className="block text-gray-700">descrição</label>
+          <label className="block ">descrição</label>
           <input
             type="text"
             name="descricao"
@@ -128,7 +122,7 @@ function FormTreinos() {
             required
           />
 
-          <label className="block text-gray-700">Duração (min)</label>
+          <label className="block ">Duração (min)</label>
           <input
             type="text"
             name="duracaoMin"
@@ -138,7 +132,7 @@ function FormTreinos() {
             required
           />
 
-          <label className="block text-gray-700">Categoria</label>
+          <label className="block ">Categoria</label>
           <input
             type="text"
             name="categoria"
@@ -148,7 +142,7 @@ function FormTreinos() {
             required
           />
 
-          <label className="block text-gray-700">Exercicio</label>
+          <label className="block ">Exercicio</label>
           <select
             name="exercicio"
             value={treino.exercicio?.id || ""}
@@ -179,7 +173,7 @@ function FormTreinos() {
           </button>
         </form>
       </div>
-      <ListarExercicios />
+      <ListarTreinos />
     </>
   );
 }

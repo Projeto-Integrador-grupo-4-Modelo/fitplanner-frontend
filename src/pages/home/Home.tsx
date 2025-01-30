@@ -1,9 +1,129 @@
-import { Clock, Target, Users } from "lucide-react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import {
+  PlusCircle,
+  Dumbbell,
+  Trash,
+  User,
+  Menu,
+  X,
+  Target,
+  Clock,
+  Users,
+} from "lucide-react";
+import { AuthContext } from "../../context/AuthContext";
+
+function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { userType, logout, isAluno, isProfessor } = useContext(AuthContext);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <nav
+      className={`fixed w-full top-0 z-50 transition-all duration-300 bg-gray-900 py-2 ${
+        isScrolled
+          ? "bg-gray-900/95 backdrop-blur-sm shadow-lg py-2"
+          : "bg-gray-900 py-3"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <Link to="/" className="flex items-center h-16">
+          <img
+            src="./src/assets/logofit.png"
+            alt="FitPlanner Logo"
+            className="h-auto w-44"
+          />
+        </Link>
+
+        <div className="hidden md:flex items-center gap-8">
+          <Link
+            to="/dashboard"
+            className="text-white hover:text-[#B8860B] transition-colors"
+          >
+            Home
+          </Link>
+          {isAluno && (
+            <>
+              <Link
+                to="/meus-treinos"
+                className="text-white hover:text-[#B8860B] transition-colors"
+              >
+                Meus Treinos
+              </Link>
+              <button
+                onClick={logout}
+                className="text-white hover:text-[#B8860B] transition-colors"
+              >
+                Sair
+              </button>
+            </>
+          )}
+          {isProfessor && (
+            <>
+              <Link
+                to="/cadastrar-treino"
+                className="text-white hover:text-[#B8860B] transition-colors"
+              >
+                <PlusCircle size={20} /> Cadastrar Treino
+              </Link>
+              <Link
+                to="/treinos"
+                className="text-white hover:text-[#B8860B] transition-colors"
+              >
+                <Dumbbell size={20} /> Ver Todos os Treinos
+              </Link>
+              <Link
+                to="/deletar-treino"
+                className="text-white hover:text-[#B8860B] transition-colors"
+              >
+                <Trash size={20} /> Deletar Treino
+              </Link>
+              <button
+                onClick={logout}
+                className="text-white hover:text-[#B8860B] transition-colors"
+              >
+                Sair
+              </button>
+            </>
+          )}
+          {!userType && (
+            <Link
+              to="/login"
+              className="bg-[#B8860B] text-white px-6 py-2 rounded-full flex items-center gap-2 hover:bg-[#9B7200] transition-all transform hover:scale-105"
+            >
+              <User size={20} />
+              <span>Área do Aluno</span>
+            </Link>
+          )}
+        </div>
+
+        <button
+          className="md:hidden"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? (
+            <X className="h-6 w-6 text-white" />
+          ) : (
+            <Menu className="h-6 w-6 text-white" />
+          )}
+        </button>
+      </div>
+    </nav>
+  );
+}
 
 function Home() {
   return (
     <>
+      <Navbar />
       <div className="min-h-screen bg-[#1A1A1A] text-white">
         <main className="relative w-full h-screen flex items-center justify-center">
           <div className="absolute inset-0 w-full h-full">

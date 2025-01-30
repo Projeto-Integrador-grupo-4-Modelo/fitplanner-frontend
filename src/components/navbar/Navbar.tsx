@@ -1,119 +1,95 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { User, Menu, X, Dumbbell, PlusCircle, Trash } from "lucide-react";
-import { useAuth } from "../../context/useAuth";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { AuthContext } from "../../context/AuthContext";
 
-export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { userType, logout, isAluno, isProfessor } = useAuth();
+function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const { handleLogout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+  function logout() {
+    handleLogout();
+    navigate("/");
+  }
   return (
-    <nav
-      className={`fixed w-full top-0 z-50 transition-all duration-300 bg-gray-900 py-2 ${
-        isScrolled
-          ? "bg-gray-900/95 backdrop-blur-sm shadow-lg py-2"
-          : "bg-gray-900 py-3"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Link to="/" className="flex items-center h-16">
-          <img
-            src="./src/assets/logofit.png"
-            alt="FitPlanner Logo"
-            className="h-auto w-44"
-          />
-        </Link>
+    <nav className="bg-gray-900 shadow-lg">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between items-center h-20">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <img
+              src="https://ik.imagekit.io/viclaraa/download%20(1).png?updatedAt=1738257115184"
+              alt="Logo"
+              className="h-10 w-auto"
+            />
+          </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link
-            to="/dashboard"
-            className="text-white hover:text-[#B8860B] transition-colors"
-          >
-            Home
-          </Link>
-
-          {/* Opções para Aluno */}
-          {isAluno && (
-            <>
-              <Link
-                to="/meus-treinos"
-                className="text-white hover:text-[#B8860B] transition-colors"
-              >
-                Meus Treinos
-              </Link>
-              <button
-                onClick={logout}
-                className="text-white hover:text-[#B8860B] transition-colors"
-              >
-                Sair
-              </button>
-            </>
-          )}
-
-          {/* Opções para Professor */}
-          {isProfessor && (
-            <>
-              <Link
-                to="/cadastrar-treino"
-                className="text-white hover:text-[#B8860B] transition-colors"
-              >
-                <PlusCircle size={20} /> Cadastrar Treino
-              </Link>
-              <Link
-                to="/treinos"
-                className="text-white hover:text-[#B8860B] transition-colors"
-              >
-                <Dumbbell size={20} /> Ver Todos os Treinos
-              </Link>
-              <Link
-                to="/deletar-treino"
-                className="text-white hover:text-[#B8860B] transition-colors"
-              >
-                <Trash size={20} /> Deletar Treino
-              </Link>
-              <button
-                onClick={logout}
-                className="text-white hover:text-[#B8860B] transition-colors"
-              >
-                Sair
-              </button>
-            </>
-          )}
-
-          {/* Se não estiver logado */}
-          {!userType && (
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8">
             <Link
-              to="/login"
-              className="bg-[#B8860B] text-white px-6 py-2 rounded-full flex items-center gap-2 hover:bg-[#9B7200] transition-all transform hover:scale-105"
+              to="/base/dashboard"
+              className="px-3 py-2 rounded-md text-sm font-medium text-[#E4B61A] hover:bg-[#E4B61A] hover:text-black transition-all duration-300"
             >
-              <User size={20} />
-              <span>Área do Aluno</span>
+              Dashboard
             </Link>
-          )}
+            <Link
+              to="/base/treino"
+              className="px-3 py-2 rounded-md text-sm font-medium text-[#E4B61A] hover:bg-[#E4B61A] hover:text-black transition-all duration-300"
+            >
+              Treino
+            </Link>
+            <Link
+              to="/"
+              onClick={logout}
+              className="block px-3 py-2 rounded-md text-base font-medium text-[#fd2c2c] hover:bg-[#ff3333] hover:text-black transition-all duration-300"
+            >
+              Sair
+            </Link>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-[#E4B61A] hover:text-[#E4B61A] focus:outline-none"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? (
-            <X className="h-6 w-6 text-white" />
-          ) : (
-            <Menu className="h-6 w-6 text-white" />
-          )}
-        </button>
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              <Link
+                to="/base/treino"
+                className="block px-3 py-2 rounded-md text-base font-medium text-[#E4B61A] hover:bg-[#E4B61A] hover:text-black transition-all duration-300"
+                onClick={() => setIsOpen(false)}
+              >
+                Treino
+              </Link>
+              <Link
+                to="/base/dashboard"
+                className="block px-3 py-2 rounded-md text-base font-medium text-[#E4B61A] hover:bg-[#E4B61A] hover:text-black transition-all duration-300"
+                onClick={() => setIsOpen(false)}
+              >
+                Dashboard
+              </Link>
+              <Link
+                onClick={logout}
+                className="block px-3 py-2 rounded-md text-base font-medium text-[#fd2c2c] hover:bg-[#ff3333] hover:text-black transition-all duration-300"
+                to="/"
+              >
+                Sair
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
 }
+
+export default Navbar;
