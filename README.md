@@ -2,6 +2,10 @@
 
 https://www.canva.com/design/DAGYzTb_sEY/1N9nW34cMKL4wHeRRK7Yyg/edit
 
+# Escopo do Projeto #
+
+https://docs.google.com/document/d/1dzu0mTo4Qvz8Q5bCS8QWrm3wnqaqq-DvBBbzglOhNR8/edit?tab=t.0
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
