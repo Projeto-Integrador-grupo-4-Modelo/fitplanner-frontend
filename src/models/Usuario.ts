@@ -10,4 +10,5 @@ export default interface Usuario {
   altura: number;
   peso: number;
   treino: Treino | null;
+  tipo: string;
 }
