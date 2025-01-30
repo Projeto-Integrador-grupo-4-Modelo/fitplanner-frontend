@@ -1,35 +1,55 @@
-import { Link } from "react-router-dom";
-import Exercicio from "../../../models/Exercicio";
 import { Edit2, Trash2 } from "lucide-react";
+import Exercicio from "../../../models/Exercicio";
 
-// interface CardExerciciosProps {
-//   exercicio: Exercicio;
-//   onEdit: (exercicio: Exercicio) => void;
-//   onDelete: (id: number) => void;
-// }
+interface CardExerciciosProps {
+  exercicio: Exercicio;
+  onEdit: (exercicio: Exercicio) => void;
+  onDelete: (id: number) => void;
+}
 
-function CardExercicios() {
+import { useNavigate } from "react-router-dom";
+
+function CardExercicios({ exercicio, onDelete }: CardExerciciosProps) {
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-      <header className="text-xl font-semibold text-gray-900">Exercício</header>
-      <p className="text-gray-900">nome exercicio</p>
-      <p className="text-gray-600"> séries</p>
-      <p className="text-gray-600"> repetições</p>
+    <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border border-gray-200">
+      <div className="flex justify-between items-center">
+        <div className="flex items-center space-x-2">
+          <span className="text-[#f5c518] text-xl">💪</span>
+          <h3 className="text-lg font-semibold text-gray-900">
+            {exercicio.nomeExercicio}
+          </h3>
+        </div>
+        <div className="flex space-x-2">
+          <button
+            onClick={() =>
+              navigate("/editar-exercicio", { state: { exercicio } })
+            }
+            className="p-2 text-[#f5c518] hover:bg-gray-100 rounded-full"
+          >
+            <Edit2 size={20} />
+          </button>
 
-      <p className="text-sm italic text-gray-600">instruções</p>
+          <button
+            onClick={() => onDelete(exercicio.id)}
+            className="p-2 text-red-500 hover:bg-gray-100 rounded-full"
+          >
+            <Trash2 size={20} />
+          </button>
+        </div>
+      </div>
 
-      <div className="flex space-x-2 mt-4">
-        {/* <Link to="/editar-exercicio"> */}
-        <button className="p-2 text-[#f5c518] hover:bg-gray-100 rounded-full">
-          <Edit2 size={20} />
-        </button>
-        {/* </Link> */}
-
-        {/* <Link to="/deletar-exercicio"> */}
-        <button className="p-2 text-red-500 hover:bg-gray-100 rounded-full">
-          <Trash2 size={20} />
-        </button>
-        {/* </Link> */}
+      <div className="border-t mt-2 pt-2">
+        <p className="text-gray-700 font-medium">{exercicio.instrucao}</p>
+        <div className="flex justify-between text-gray-700 text-sm mt-2">
+          <p>
+            <strong>Séries:</strong> {exercicio.series}
+          </p>
+          <p>
+            <strong>Repetições:</strong> {exercicio.repeticoes}
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/home/Home";
 import About from "./pages/about/About";
-import CardExercicios from "./components/exercicios/cardexercicios/CardExercicios";
+import FormTreinos from "./components/treino/formtreino/FormTreino";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
           <Route path="/sobre" element={<About />} />
         </Routes>
       </BrowserRouter> */}
-      <CardExercicios />
+      <FormTreinos />
     </>
   );
 }
