@@ -1,81 +1,70 @@
-import { useState, useContext, useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { ClipLoader } from "react-spinners"
-import { Trash, IterationCw } from 'lucide-react'
-import Treino from "../../../models/Treino"
-import { buscar, deletar } from "../../../service/Service"
-
+import { useState, useContext, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { IterationCw, Trash } from "lucide-react";
+import Treino from "../../../models/Treino";
+import { buscar, deletar } from "../../../service/Service";
+import { AuthContext } from "../../../context/AuthContext";
 
 function DeletarTreino() {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  const [treino, setTreino] = useState<Treino>({} as Treino);
 
-  const [treino, setTreino] = useState<Treino>({} as Treino)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const token = usuario.token;
 
-  const { usuario, handleLogout } = useContext(AuthContext)
-  const token = usuario.token
-
-
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ id: string }>();
 
   async function buscarPorId(id: string) {
     try {
       await buscar(`/treinos/${id}`, setTreino, {
         headers: {
-          'Authorization': token
-        }
-      })
+          Authorization: token,
+        },
+      });
     } catch (error: any) {
-      if (error.toString().includes('403')) {
-        handleLogout()
+      if (error.toString().includes("403")) {
+        handleLogout();
+        navigate("/");
       }
     }
   }
 
   useEffect(() => {
     if (!token) {
-      alert('Você precisa estar logado')
-      navigate('/')
+      alert("Você precisa estar logado");
+      navigate("/");
     }
-  }, [token])
+  }, [token]);
 
   useEffect(() => {
     if (id !== undefined) {
-      buscarPorId(id)
+      buscarPorId(id);
     }
-  }, [id])
+  }, [id]);
 
   async function deletarTreino() {
-    setIsLoading(true)
-
     try {
       await deletar(`/treinos/${id}`, {
         headers: {
-          'Authorization': token
-        }
-      })
+          Authorization: token,
+        },
+      });
 
-      alert('Treino apagado com sucesso')
-
+      alert("Treino apagado com sucesso");
     } catch (error: any) {
-      if (error.toString().includes('403')) {
-        handleLogout()
+      if (error.toString().includes("403")) {
+        handleLogout();
       } else {
-        alert('Erro ao deletar o treino.')
+        alert("Erro ao deletar o treino.");
       }
     }
-
-    setIsLoading(false)
-    retornar()
+    retornar();
   }
 
   function retornar() {
-    navigate("/treinos")
+    navigate("/base/treinos");
   }
-
-
-
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
@@ -107,24 +96,20 @@ function DeletarTreino() {
         </div>
 
         <div className="flex items-center justify-around pt-2 border-t border-gray-200 mt-4">
-          <button className="flex items-center text-gray-600 hover:text-green-500 transition-colors px-4 py-2 rounded-md hover:bg-green-50" onClick={retornar}>
+          <button
+            className="flex items-center text-gray-600 hover:text-green-500 transition-colors px-4 py-2 rounded-md hover:bg-green-50"
+            onClick={retornar}
+          >
             <IterationCw className="h-6 w-6 mr-2" />
             <span className="text-base">Manter</span>
           </button>
 
-          <button className="flex items-center text-gray-600 hover:text-red-500 transition-colors px-4 py-2 rounded-md hover:bg-red-50" onClick={deletarTreino}>
+          <button
+            className="flex items-center text-gray-600 hover:text-red-500 transition-colors px-4 py-2 rounded-md hover:bg-red-50"
+            onClick={deletarTreino}
+          >
             <Trash className="h-6 w-6 mr-2" />
-            {isLoading ? (
-              <ClipLoader
-                color="#FFD700"
-                size={50}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-
-              />
-            ) : (
-              <span className="text-base">Deletar</span>
-            )}
+            <span className="text-base">Deletar</span>
           </button>
         </div>
       </div>
@@ -132,8 +117,4 @@ function DeletarTreino() {
   );
 }
 
-export default DeletarTreino
-
-
-
-
+export default DeletarTreino;

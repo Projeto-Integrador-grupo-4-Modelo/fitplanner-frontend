@@ -1,10 +1,35 @@
 import { Edit2, Trash2 } from "lucide-react";
 import Treino from "../../../models/Treino";
+import { Link } from "react-router-dom";
+import { deletar } from "../../../service/Service";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 interface CardTreinosProps {
   treino: Treino;
 }
 
 function CardTreino({ treino }: CardTreinosProps) {
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const token = usuario.token;
+
+  async function deletarTreino() {
+    try {
+      await deletar(`/treinos/${treino.id}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      alert("Treino apagado com sucesso");
+    } catch (error: any) {
+      if (error.toString().includes("403")) {
+        handleLogout();
+      } else {
+        alert("Erro ao deletar o treino.");
+      }
+    }
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border w-80">
       <div className="flex items-center justify-between">
@@ -19,7 +44,10 @@ function CardTreino({ treino }: CardTreinosProps) {
           <button className="p-1 text-[#f5c518] hover:bg-gray-100 rounded-full">
             <Edit2 size={18} />
           </button>
-          <button className="p-1 text-red-500 hover:bg-gray-100 rounded-full">
+          <button
+            className="p-1 text-red-500 hover:bg-gray-100 rounded-full"
+            onClick={deletarTreino}
+          >
             <Trash2 size={18} />
           </button>
         </div>

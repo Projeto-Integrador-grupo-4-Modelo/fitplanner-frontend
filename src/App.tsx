@@ -7,6 +7,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Home from "./pages/home/Home";
 import Dashboard from "./pages/dashboard/Dashboard";
 import FormTreinos from "./components/treino/formtreino/FormTreino";
+import DeletarTreino from "./components/treino/deletartreino/DeletarTreino";
 
 function App() {
   return (
@@ -15,10 +16,11 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/base" element={<PaginaBase />}>
-              <Route path="sobre" element={<About />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="treino" element={<FormTreinos />} />
+              <Route path="deletartreino" element={<DeletarTreino />} />
             </Route>
+            <Route path="/sobre" element={<About />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/cadastro" element={<Cadastro />} />

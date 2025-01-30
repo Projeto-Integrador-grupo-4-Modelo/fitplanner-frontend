@@ -45,10 +45,10 @@ function Navbar() {
 
         <div className="hidden md:flex items-center gap-8">
           <Link
-            to="/dashboard"
+            to="sobre"
             className="text-white hover:text-[#B8860B] transition-colors"
           >
-            Home
+            Sobre nós
           </Link>
           {isAluno && (
             <>
